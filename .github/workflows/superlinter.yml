@@ -2,18 +2,23 @@ name: Super-Linter
 
 on: push
 
+permissions:
+  contents: read
+  statuses: write
+
 jobs:
   super-lint:
     name: Lint code base
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # <--- Ini sangat penting agar Super-Linter bisa membaca riwayat file
+          fetch-depth: 0
 
       - name: Run Super-Linter
-        uses: super-linter/super-linter@v5  # <--- Gunakan versi yang lebih baru
+        uses: super-linter/super-linter@v5
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
